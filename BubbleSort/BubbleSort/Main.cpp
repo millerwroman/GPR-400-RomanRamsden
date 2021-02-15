@@ -1,9 +1,8 @@
 #pragma once
 #include <cstdio>
 #include "Random.h"
-#include <chrono>
 #include <iostream>
-
+#include "PreformaceTimer.h"
 void Swap(int* x, int* y)
 {
 	int temp = *x;
@@ -42,16 +41,15 @@ void PopulateArray(int arr[], int sizeToPopulate)
 {
 	for (int i = 0; i < sizeToPopulate; ++i)
 	{
-		arr[i] = GetRandomFloat32_Range(0, 5 * sizeToPopulate);
+		arr[i] = (int)GetRandomFloat32_Range(0, (5 * sizeToPopulate));
 	}
 }
 
-typedef std::chrono::high_resolution_clock Clock;
-typedef std::chrono::steady_clock::time_point Time;
-typedef std::chrono::duration<float> ElapsedTime_f;
+
 
 int main()
 {
+	Timer* timer = new Timer();
 	const int size = 20000;
 	int numberArray[size];
 	SetRandomSeed(5848582);
@@ -59,13 +57,12 @@ int main()
 
 	PopulateArray(numberArray, size);
 
-	Time timeStart = Clock::now();
+	timer->StartTimer("Bubble Sort");
 	BubbleSort(numberArray, size);
-	Time timeEnd = Clock::now();
+	timer->StopTimer("Bubble Sort");
 
 	Print(numberArray, size);
-	ElapsedTime_f duration = timeEnd - timeStart;
-	printf("\n\n Runtime: %f \n\n", duration.count());
+	printf("\n\n Runtime: %f \n\n", timer->GetElapsedTime("Bubble Sort"));
 	system("pause");
 	return 0;
 }
