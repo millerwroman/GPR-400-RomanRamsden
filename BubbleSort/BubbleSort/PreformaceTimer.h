@@ -1,5 +1,6 @@
 #pragma once
 #include <chrono>
+#include <functional>
 #include <map>
 
 typedef std::chrono::high_resolution_clock Clock;
@@ -31,15 +32,53 @@ public:
 typedef std::pair<std::string, TimerInstance*> TimerPair;
 typedef std::map<std::string, TimerInstance*>::iterator Iterator;
 
+struct RunInfo
+{
+	float minTime = 99999;
+	float maxTime = 0;
+	float averageTime = 0;
+};
+
 class Timer
 {
 	std::map<std::string, TimerInstance*> instanceMap;
 
 public:
+
+	/*RunInfo RunSetTimes(int runCount, const std::function<void()>& func, const std::function<void()>& setup)
+	{
+		RunInfo info = RunInfo();
+		info.runQuantity = runCount;
+		for (int i = 0; i < runCount; ++i)
+		{
+			setup();
+			StartTimer("RunSetTime");
+			func();
+			float timeTaken = StopTimer("RunSetTime");
+			
+			info.averageTime += timeTaken;
+			info.minTime = (timeTaken < info.minTime ? timeTaken : info.minTime);
+			info.maxTime = (timeTaken > info.maxTime ? timeTaken : info.maxTime);
+		}
+
+		info.averageTime /= runCount;
+		return info;
+	}*/
+
 	void StartTimer(std::string timerName)
 	{
-		TimerInstance* instance = new TimerInstance(timerName);
-		instanceMap.insert(TimerPair(timerName, instance));
+		const Iterator item = instanceMap.find(timerName);
+		if(item != instanceMap.end())
+		{
+			delete item->second;
+			item->second = nullptr;
+			item->second = new TimerInstance(timerName);
+		}
+		else
+		{
+			TimerInstance* instance = new TimerInstance(timerName);
+			instanceMap.insert(TimerPair(timerName, instance));
+		}
 	}
 
 	float StopTimer(std::string timerName)
