@@ -1,14 +1,14 @@
 #pragma once
+
 #include <cstdio>
 #include <iostream>
 
-#include "PreformaceTimer.h"
-#include "Random.h"
-#include "GameOfLife.h"
 #include "BubbleSort.h"
+#include "GameOfLife.h"
+#include "PreformaceTimer.h"
 #include "PrimeFactorization.h"
-#include  "vector"
-
+#include "Random.h"
+#include "vector"
 
 int main()
 {
@@ -16,13 +16,10 @@ int main()
 	const int runTimes = 1000;
 	RunInfo info = RunInfo();
 
-	
-	//BubbleSortTest(timer, runTimes, info);
-	//TestPrime(timer, runTimes, info);
-	//GameOfLifeTest(timer);
+	BubbleSortTest(timer, runTimes, info);
+	// TestPrime(timer, runTimes, info);
+	// GameOfLifeTest(timer);
 
-	
-	
 	system("pause");
 	return 0;
 }

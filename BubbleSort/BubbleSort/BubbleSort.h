@@ -48,6 +48,7 @@ void BubbleSortTest(Timer* timer, int runTimes, RunInfo& info)
 {
 	const int size = 10000;
 	int numberArray[size];
+	
 	for (int i = 0; i < runTimes; ++i)
 	{
 		SetRandomSeed(64 * i);

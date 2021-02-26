@@ -71,6 +71,7 @@ void determineState(bool gridOne[gridSize + 1][gridSize + 1])
 		}
 	}
 }
+
 void clearScreen()
 {
 	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -90,6 +91,7 @@ void clearScreen()
 
 	SetConsoleCursorPosition(hStdOut, homeCoords);
 }
+
 void GameOfLifeTest(Timer* timer)
 {
 	std::cout << COLOR_GREEN;
@@ -113,12 +115,14 @@ void GameOfLifeTest(Timer* timer)
 
 	if (start == "y" || start == "Y")
 	{
-		while (true)
+		int i = 0;
+		while (i < 10000)
 		{
 			printGrid(gridOne);
 			determineState(gridOne);
-			Sleep(1500);
+			Sleep(100);
 			clearScreen();
+			i++;
 		}
 	}
 
