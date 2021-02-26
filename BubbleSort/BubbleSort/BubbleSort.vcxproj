@@ -139,9 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameOfLife.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameOfLife.h" />
     <ClInclude Include="PreformaceTimer.h" />
     <ClInclude Include="Random.h" />
   </ItemGroup>
