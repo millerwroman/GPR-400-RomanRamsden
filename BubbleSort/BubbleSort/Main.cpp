@@ -3,6 +3,7 @@
 #include "Random.h"
 #include <iostream>
 #include "PreformaceTimer.h"
+#include  "vector"
 void Swap(int* x, int* y)
 {
 	int temp = *x;
@@ -37,6 +38,14 @@ void Print(int arr[], int size)
 	}
 }
 
+void Print(std::vector<int> vec)
+{
+	for (auto i : vec)
+	{
+		printf("%i", i);
+	}
+}
+
 void PopulateArray(int arr[], int sizeToPopulate)
 {
 	for (int i = 0; i < sizeToPopulate; ++i)
@@ -45,19 +54,53 @@ void PopulateArray(int arr[], int sizeToPopulate)
 	}
 }
 
+//Implementation of the "Vishwas Garg" method
+//Known as the simplest implementation of a prime factorization algorithms 
+std::vector<int> FactorPrimes(long long n)
+{
+	std::vector<int>::iterator it;
+	std::vector<int> primes;
+
+	while (n % 2 == 0)
+	{
+		it = primes.end();
+		primes.insert(it, 2);
+		n = n / 2;
+	}
+
+	for (int i = 3; i <= sqrt(n); i = i + 2)
+	{
+		while (n % i == 0)
+		{
+			it = primes.end();
+			primes.insert(it, 2);
+			n = n / i;
+		}
+	}
+
+	if (n > 2)
+	{
+		it = primes.end();
+		primes.insert(it, n);
+	}
+	return primes;
+}
+
 
 
 int main()
 {
 	Timer* timer = new Timer();
-	const int size = 10000;
-	const int runTimes = 100;
-	int numberArray[size];
-	
+	const int runTimes = 1000000;
 	RunInfo info = RunInfo();
+
+
+	/* Bubble Sort
+	const int size = 10000;
+	int numberArray[size];
 	for (int i = 0; i < runTimes; ++i)
 	{
-		SetRandomSeed(64*i);
+		SetRandomSeed(64 * i);
 		PopulateArray(numberArray, size);
 		timer->StartTimer("Bubble Sort");
 		BubbleSort(numberArray, size);
@@ -75,6 +118,28 @@ int main()
 	printf("Min Time: %f \n", info.minTime);
 	printf("Average Time: %f \n", info.averageTime);
 	printf("Sample Size: %i \n", runTimes);
+	*/
+	const long long numberToFactor = (long long)GetRandomFloat32_Range(4 * 10000000, (6 * 10000000));
+	std::vector<int> finalRun;
+	for (int i = 0; i < runTimes; ++i)
+	{
+		timer->StartTimer("Prime");
+		finalRun = FactorPrimes(9223372036854775807);
+		float timeTaken = timer->StopTimer("Prime");
+		info.averageTime += timeTaken;
+		info.minTime = (timeTaken < info.minTime ? timeTaken : info.minTime);
+		info.maxTime = (timeTaken > info.maxTime ? timeTaken : info.maxTime);
+	}
+	info.averageTime /= runTimes;
+
+	printf("\n\nRuntime Info: \n");
+	printf("Number Factored: %u \n", (unsigned int)numberToFactor);
+	printf("Max Time: %f \n", info.maxTime);
+	printf("Min Time: %f \n", info.minTime);
+	printf("Average Time: %f \n", info.averageTime);
+	printf("Sample Size: %i \n", runTimes);
+	Print(finalRun);
+	
 	system("pause");
 	return 0;
 }
