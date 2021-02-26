@@ -32,5 +32,11 @@
     <ClInclude Include="GameOfLife.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PrimeFactorization.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BubbleSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

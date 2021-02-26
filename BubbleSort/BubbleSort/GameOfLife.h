@@ -7,6 +7,8 @@
 #include <sstream>
 #include <Windows.h>
 
+#include "PreformaceTimer.h"
+
 // Implementation borrowed from https://github.com/MarioTalevski/game-of-life
 // Will possibly do my own implementation, but I don't have a firm grasp over windows console manipulation
 
@@ -24,3 +26,5 @@ void compareGrid(bool gridOne[gridSize+1][gridSize+1], bool gridTwo[gridSize+1][
 void determineState(bool gridOne[gridSize + 1][gridSize + 1]);
 
 void clearScreen();
+
+void GameOfLifeTest(Timer* timer);

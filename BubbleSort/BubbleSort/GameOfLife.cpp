@@ -90,3 +90,38 @@ void clearScreen()
 
 	SetConsoleCursorPosition(hStdOut, homeCoords);
 }
+void GameOfLifeTest(Timer* timer)
+{
+	std::cout << COLOR_GREEN;
+	clearScreen();
+	bool gridOne[gridSize + 1][gridSize + 1] = {};
+	const int numCells = 5;
+	int x, y, n;
+	std::string start;
+
+	for (int i = 0; i < numCells; ++i)
+	{
+		std::cout << numCells << "Enter the coordinates of cell " << i + 1 << " : ";
+		std::cin >> x >> y;
+		gridOne[x][y] = true;
+		printGrid(gridOne);
+	}
+
+	std::cout << "Grid setup is done. Start the game ? (y/n)" << std::endl;
+	printGrid(gridOne);
+	std::cin >> start;
+
+	if (start == "y" || start == "Y")
+	{
+		while (true)
+		{
+			printGrid(gridOne);
+			determineState(gridOne);
+			Sleep(1500);
+			clearScreen();
+		}
+	}
+
+	std::cout << COLOR_RESET;
+	clearScreen();
+}
