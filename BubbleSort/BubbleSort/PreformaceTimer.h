@@ -40,6 +40,7 @@ struct RunInfo
 	float averageTime = 0;
 };
 
+
 class Timer
 {
 	std::map<std::string, TimerInstance*> instanceMap;
