@@ -2,6 +2,8 @@
 
 #include <cstdio>
 #include <iostream>
+#include <thread>
+
 
 #include "BubbleSort.h"
 #include "GameOfLife.h"
@@ -10,15 +12,20 @@
 #include "Random.h"
 #include "vector"
 
+
+
 int main()
 {
 	Timer* timer = new Timer();
 	const int runTimes = 1000;
 	RunInfo info = RunInfo();
 
-	BubbleSortTest(timer, runTimes, info);
+	//std::thread thread(Task, 1);
+
+	//BubbleSortTest(timer, runTimes, info);
 	// TestPrime(timer, runTimes, info);
 	// GameOfLifeTest(timer);
+	TestPrimeThreaded(timer, runTimes, info);
 
 	system("pause");
 	return 0;

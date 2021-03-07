@@ -1,5 +1,6 @@
 #pragma once
 #include "PreformaceTimer.h"
+
 void Print(std::vector<int> vec)
 {
 	for (auto i : vec)
@@ -63,3 +64,77 @@ void TestPrime(Timer* timer, int runTimes, RunInfo& info)
 	printf("Sample Size: %i \n", runTimes);
 	Print(finalRun);
 }
+
+static unsigned int numberThreadsActive = 0;
+static unsigned int numberThreadsStarted = 0;
+void ThreadedFactor(void* input)
+{
+	numberThreadsActive++;
+	long long val = reinterpret_cast<long long>(input);
+	std::vector<int>::iterator it;
+	std::vector<int> primes;
+
+	while (val % 2 == 0)
+	{
+		it = primes.end();
+		primes.insert(it, 2);
+		val = val / 2;
+	}
+
+	for (int i = 3; i <= sqrt(val); i = i + 2)
+	{
+		while (val % i == 0)
+		{
+			it = primes.end();
+			primes.insert(it, 2);
+			val = val / i;
+		}
+	}
+
+	if (val > 2)
+	{
+		it = primes.end();
+		primes.insert(it, val);
+	}
+	numberThreadsActive--;
+}
+
+class WorkerThread
+{
+public:
+	WorkerThread() {};
+	~WorkerThread() {};
+
+	static void FactorNumbers(long long val)
+	{
+		_beginthread(ThreadedFactor, 0, &val);
+	}
+};
+
+
+void TestPrimeThreaded(Timer* timer, int runTimes, RunInfo& info)
+{
+	const unsigned int MAX_THREADS = 16;
+	std::vector<WorkerThread*> threadList;
+	for (int i = 0; i < MAX_THREADS; ++i)
+	{
+		threadList.push_back(new WorkerThread());
+	}
+
+	for(int i=0; i<threadList.size(); ++i)
+	{
+		threadList[i]->FactorNumbers(9223372036854775807);
+	}
+	
+	do
+	{
+		Sleep(1);
+	} while (numberThreadsActive > 0 || numberThreadsStarted == 0);
+}
+
+/*Questions:
+ *Async?
+ *Return from threads?
+ *Better timer?
+ *
+*/

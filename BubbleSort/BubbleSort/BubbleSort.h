@@ -28,7 +28,7 @@ void PopulateArray(int arr[], int sizeToPopulate)
 {
 	for (int i = 0; i < sizeToPopulate; ++i)
 	{
-		arr[i] = (int)GetRandomFloat32_Range(0, (5 * sizeToPopulate));
+		arr[i] = static_cast<int>(GetRandomFloat32_Range(0, (5 * sizeToPopulate)));
 	}
 }
 
