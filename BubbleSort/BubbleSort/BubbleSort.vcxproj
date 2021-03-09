@@ -148,6 +148,7 @@
     <ClInclude Include="PreformaceTimer.h" />
     <ClInclude Include="PrimeFactorization.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="WorkerThread.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
