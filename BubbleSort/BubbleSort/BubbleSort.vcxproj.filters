@@ -38,5 +38,8 @@
     <ClInclude Include="BubbleSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WorkerThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
