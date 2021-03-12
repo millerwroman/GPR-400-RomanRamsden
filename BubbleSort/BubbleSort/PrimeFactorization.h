@@ -68,7 +68,7 @@ void TestPrime(Timer* timer, int runTimes, RunInfo& info)
 }
 
 
-void TestPrimeThreaded(Timer* timer, int runTimes, RunInfo& info)
+void TestPrimeThreaded(int runTimes, RunInfo& info)
 {
 	const unsigned int MAX_THREADS = 16;
 	std::vector<WorkerThread*> threadList;
@@ -94,6 +94,8 @@ void TestPrimeThreaded(Timer* timer, int runTimes, RunInfo& info)
 			numberThreadsStarted++;
 		}
 	} while (numberThreadsActive > 0 || numberThreadsStarted == 0);
+
+	info = WorkerThread::GetRunInfo();
 }
 
 /*Questions:

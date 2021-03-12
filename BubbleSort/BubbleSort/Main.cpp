@@ -17,16 +17,11 @@
 int main()
 {
 	Timer* timer = new Timer();
-	const int runTimes = 20000000;
+	const int runTimes = 10000;
 	RunInfo info = RunInfo();
 
-	//std::thread thread(Task, 1);
-
-	//BubbleSortTest(timer, runTimes, info);
-	// TestPrime(timer, runTimes, info);
-	// GameOfLifeTest(timer);
-	TestPrimeThreaded(timer, runTimes, info);
-	std::cout << "Done" << std::endl;
+	TestPrimeThreaded(runTimes, info);
+	Timer::PrintInfo(info);
 	system("pause");
 	return 0;
 }

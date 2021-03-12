@@ -5,6 +5,7 @@ static unsigned int numberThreadsActive = 0;
 static unsigned int numberThreadsStarted = 0;
 std::atomic_int currentCount(0);
 std::atomic_int totalRuns(0);
+static InstanceInfo info[10000];
 
 void ThreadedFactor(void* input)
 {
@@ -13,6 +14,7 @@ void ThreadedFactor(void* input)
 	long long val = reinterpret_cast<long long>(input);
 	long long valInital = val;
 START:
+	info[currentCount].StartTime = Timer::GetTime();
 	std::vector<int>::iterator it;
 	std::vector<int> primes;
 
@@ -38,7 +40,7 @@ START:
 		it = primes.end();
 		primes.insert(it, val);
 	}
-
+	info[currentCount].EndTime = Timer::GetTime();
 	if (currentCount < totalRuns)
 	{
 		++currentCount;
@@ -47,23 +49,7 @@ START:
 	numberThreadsActive--;
 }
 
-void ThreadedBubble(void* val, const int size)
-{
-	numberThreadsActive++;
-	int* arr = reinterpret_cast<int*>(val);
 
-	for (int i = 0; i < size - 1; ++i)
-	{
-		for (int j = 0; j < size - i - 1; ++j)
-		{
-			if (arr[j] > arr[j + 1])
-			{
-				Swap(&arr[j], &arr[j + 1]);
-			}
-		}
-	}
-	numberThreadsActive--;
-}
 
 class WorkerThread
 {
@@ -75,4 +61,36 @@ public:
 	{
 		_beginthread(ThreadedFactor, 0, &val);
 	}
+
+	static RunInfo GetRunInfo()
+	{
+		return Timer::ProcessInstanceArray(info, 10000);
+	}
+
+	static void Reset()
+	{
+		numberThreadsActive = 0;
+		numberThreadsStarted = 0;
+		currentCount = 0;
+		totalRuns = 0;
+	}
 };
+
+
+//void ThreadedBubble(void* val, const int size)
+//{
+//	numberThreadsActive++;
+//	int* arr = reinterpret_cast<int*>(val);
+//
+//	for (int i = 0; i < size - 1; ++i)
+//	{
+//		for (int j = 0; j < size - i - 1; ++j)
+//		{
+//			if (arr[j] > arr[j + 1])
+//			{
+//				Swap(&arr[j], &arr[j + 1]);
+//			}
+//		}
+//	}
+//	numberThreadsActive--;
+//}

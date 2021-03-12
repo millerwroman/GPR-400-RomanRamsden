@@ -128,7 +128,7 @@ public:
 	static RunInfo ProcessInstanceArray(InstanceInfo* arr, int size)
 	{
 		RunInfo info;
-		unsigned long long averageTime;
+		unsigned long long averageTime = 0;
 		for(int i=0;i<size; ++i)
 		{
 			float timeTaken = GetElapsedTime(arr[i]);
@@ -138,6 +138,13 @@ public:
 		}
 
 		return info;
+	}
+
+	static void PrintInfo(const RunInfo& info)
+	{
+		std::string out = "RunInfo: \nMin Time: " + std::to_string(info.minTime) + "\nMax Time: " + std::to_string(info.maxTime)
+			+ "\n Average Time: " + std::to_string(info.averageTime) + "\n\n\n\n";
+		std::cout << out;
 	}
 
 	~Timer()
