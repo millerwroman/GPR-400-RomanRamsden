@@ -20,7 +20,8 @@ int main()
 	const int runTimes = 10000;
 	RunInfo info = RunInfo();
 
-	TestPrimeThreaded(runTimes, info);
+	//TestPrimeThreaded(runTimes, info);
+	TestBubbleThreaded(runTimes, info, 10000);
 	Timer::PrintInfo(info);
 	system("pause");
 	return 0;

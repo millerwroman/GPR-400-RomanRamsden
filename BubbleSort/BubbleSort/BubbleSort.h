@@ -1,6 +1,9 @@
 #pragma once
+#include <synchapi.h>
+
 #include "PreformaceTimer.h"
 #include "Random.h"
+#include "WorkerThread.h"
 
 void Swap(int* x, int* y)
 {
@@ -69,4 +72,36 @@ void BubbleSortTest(Timer* timer, int runTimes, RunInfo& info)
 	printf("Min Time: %f \n", info.minTime);
 	printf("Average Time: %f \n", info.averageTime);
 	printf("Sample Size: %i \n", runTimes);
+}
+
+void TestBubbleThreaded(int runTimes, RunInfo& info, int arraySize)
+{
+	const unsigned int MAX_THREADS = 16;
+	std::vector<WorkerThread*> threadList;
+	totalRuns = runTimes;
+	for (int i = 0; i < MAX_THREADS; ++i)
+	{
+		threadList.push_back(new WorkerThread());
+	}
+
+	numberThreadsStarted = 0;
+	for (int i = 0; i < (runTimes < threadList.size() ? runTimes : threadList.size()); ++i)
+	{
+		numberThreadsStarted++;
+		int* arr;
+		PopulateArray(arr, arraySize);
+		threadList[i]->BubbleSort(arr, arraySize);
+	}
+
+	do
+	{
+		Sleep(1);
+		std::cout << "Working! " << std::endl;
+		if (numberThreadsStarted < runTimes && numberThreadsActive < MAX_THREADS)
+		{
+			numberThreadsStarted++;
+		}
+	} while (numberThreadsActive > 0 || numberThreadsStarted == 0);
+
+	info = WorkerThread::GetRunInfo();
 }
