@@ -2,6 +2,12 @@
 #include "PreformaceTimer.h"
 #include "Random.h"
 
+struct BubbleArr
+{
+	int* arr;
+	int size;
+};
+
 void Swap(int* x, int* y)
 {
 	int temp = *x;
@@ -30,6 +36,15 @@ void PopulateArray(int arr[], int sizeToPopulate)
 	{
 		arr[i] = static_cast<int>(GetRandomFloat32_Range(0, (5 * sizeToPopulate)));
 	}
+}
+
+void PopulateArray(BubbleArr& bubble, int sizeToPopulate)
+{
+	for (int i = 0; i < sizeToPopulate; ++i)
+	{
+		bubble.arr[i] = static_cast<int>(GetRandomFloat32_Range(0, (5 * sizeToPopulate)));
+	}
+	bubble.size = sizeToPopulate;
 }
 
 void Print(int arr[], int size)
@@ -69,4 +84,15 @@ void BubbleSortTest(Timer* timer, int runTimes, RunInfo& info)
 	printf("Min Time: %f \n", info.minTime);
 	printf("Average Time: %f \n", info.averageTime);
 	printf("Sample Size: %i \n", runTimes);
+}
+
+void TestBubbleThreaded(int runTimes, RunInfo& info)
+{
+	const unsigned int MAX_THREADS = 16;
+	std::vector<WorkerThread*> threadList;
+	totalRuns = runTimes;
+	for (int i = 0; i < MAX_THREADS; ++i)
+	{
+		threadList.push_back(new WorkerThread());
+	}
 }

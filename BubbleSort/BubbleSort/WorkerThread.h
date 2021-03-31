@@ -62,6 +62,11 @@ public:
 		_beginthread(ThreadedFactor, 0, &val);
 	}
 
+	static void ThreadedBubble()
+	{
+		
+	}
+
 	static RunInfo GetRunInfo()
 	{
 		return Timer::ProcessInstanceArray(info, 10000);

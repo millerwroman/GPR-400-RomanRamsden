@@ -20,7 +20,7 @@ int main()
 	const int runTimes = 10000;
 	RunInfo info = RunInfo();
 
-	TestPrimeThreaded(runTimes, info);
+	//TestPrimeThreaded(runTimes, info);
 	Timer::PrintInfo(info);
 	system("pause");
 	return 0;
