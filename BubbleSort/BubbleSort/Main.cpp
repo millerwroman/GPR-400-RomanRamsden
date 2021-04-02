@@ -12,8 +12,6 @@
 #include "Random.h"
 #include "vector"
 
-
-
 int main()
 {
 	Timer* timer = new Timer();
