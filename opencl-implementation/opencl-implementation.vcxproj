@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\OpenCLWrapper.h" />
+    <ClInclude Include="include\Random.h" />
     <ClInclude Include="include\VectorAdd.h" />
   </ItemGroup>
   <ItemGroup>

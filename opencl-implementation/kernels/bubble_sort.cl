@@ -12,7 +12,7 @@ void sort(int* x, int* y)
 }
 
 // Basic OpenCL Bubblesort
-__kernel void BubbleSort(__global int[] arr, __global int size)
+__kernel void BubbleSort(__global int* arr, __global int size)
 {
 	int index = get_global_id(0) << 1;
 	if(index + 1 >= size) return;
