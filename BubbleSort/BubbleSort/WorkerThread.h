@@ -1,8 +1,5 @@
 #include <process.h>
 #include "PrimeFactorization.h"
-#include "BubbleSort.h"
-#include <Windows.h>
-
 
 static unsigned int numberThreadsActive = 0;
 static unsigned int numberThreadsStarted = 0;
@@ -52,31 +49,6 @@ START:
 	numberThreadsActive--;
 }
 
-void ThreadedBubble(int* arr, int size)
-{
-	numberThreadsActive++;
-START:
-
-	for (int i = 0; i < size - 1; ++i)
-	{
-		for (int j = 0; j < size - i - 1; ++j)
-		{
-			if (arr[j] > arr[j + 1])
-			{
-				Swap(&arr[j], &arr[j + 1]);
-			}
-		}
-	}
-
-	info[currentCount].EndTime = Timer::GetTime();
-	if (currentCount < totalRuns)
-	{
-		++currentCount;
-		goto START;
-	}
-	numberThreadsActive--;
-}
-
 
 
 class WorkerThread
@@ -90,9 +62,9 @@ public:
 		_beginthread(ThreadedFactor, 0, &val);
 	}
 
-	static void BubbleSort(int* arr, int size)
+	static void ThreadedBubble()
 	{
-		std::thread t(ThreadedBubble, arr, size);
+		
 	}
 
 	static RunInfo GetRunInfo()
@@ -109,3 +81,21 @@ public:
 	}
 };
 
+
+//void ThreadedBubble(void* val, const int size)
+//{
+//	numberThreadsActive++;
+//	int* arr = reinterpret_cast<int*>(val);
+//
+//	for (int i = 0; i < size - 1; ++i)
+//	{
+//		for (int j = 0; j < size - i - 1; ++j)
+//		{
+//			if (arr[j] > arr[j + 1])
+//			{
+//				Swap(&arr[j], &arr[j + 1]);
+//			}
+//		}
+//	}
+//	numberThreadsActive--;
+//}

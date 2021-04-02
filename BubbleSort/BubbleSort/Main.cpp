@@ -21,7 +21,6 @@ int main()
 	RunInfo info = RunInfo();
 
 	//TestPrimeThreaded(runTimes, info);
-	TestBubbleThreaded(runTimes, info, 10000);
 	Timer::PrintInfo(info);
 	system("pause");
 	return 0;

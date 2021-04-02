@@ -1,9 +1,12 @@
 #pragma once
-#include <synchapi.h>
-
 #include "PreformaceTimer.h"
 #include "Random.h"
-#include "WorkerThread.h"
+
+struct BubbleArr
+{
+	int* arr;
+	int size;
+};
 
 void Swap(int* x, int* y)
 {
@@ -33,6 +36,15 @@ void PopulateArray(int arr[], int sizeToPopulate)
 	{
 		arr[i] = static_cast<int>(GetRandomFloat32_Range(0, (5 * sizeToPopulate)));
 	}
+}
+
+void PopulateArray(BubbleArr& bubble, int sizeToPopulate)
+{
+	for (int i = 0; i < sizeToPopulate; ++i)
+	{
+		bubble.arr[i] = static_cast<int>(GetRandomFloat32_Range(0, (5 * sizeToPopulate)));
+	}
+	bubble.size = sizeToPopulate;
 }
 
 void Print(int arr[], int size)
@@ -74,7 +86,7 @@ void BubbleSortTest(Timer* timer, int runTimes, RunInfo& info)
 	printf("Sample Size: %i \n", runTimes);
 }
 
-void TestBubbleThreaded(int runTimes, RunInfo& info, int arraySize)
+void TestBubbleThreaded(int runTimes, RunInfo& info)
 {
 	const unsigned int MAX_THREADS = 16;
 	std::vector<WorkerThread*> threadList;
@@ -83,25 +95,4 @@ void TestBubbleThreaded(int runTimes, RunInfo& info, int arraySize)
 	{
 		threadList.push_back(new WorkerThread());
 	}
-
-	numberThreadsStarted = 0;
-	for (int i = 0; i < (runTimes < threadList.size() ? runTimes : threadList.size()); ++i)
-	{
-		numberThreadsStarted++;
-		int* arr;
-		PopulateArray(arr, arraySize);
-		threadList[i]->BubbleSort(arr, arraySize);
-	}
-
-	do
-	{
-		Sleep(1);
-		std::cout << "Working! " << std::endl;
-		if (numberThreadsStarted < runTimes && numberThreadsActive < MAX_THREADS)
-		{
-			numberThreadsStarted++;
-		}
-	} while (numberThreadsActive > 0 || numberThreadsStarted == 0);
-
-	info = WorkerThread::GetRunInfo();
 }
