@@ -20,7 +20,7 @@ char * openKernel(char* fileName)
 	return fileToOpen;
 }
 
-struct DeviceInfo initDeviceInfo()
+struct DeviceInfo ctorDeviceInfo()
 {
 	struct DeviceInfo out;
 

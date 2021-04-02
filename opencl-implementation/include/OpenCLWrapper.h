@@ -34,6 +34,6 @@ struct DeviceInfo
 char* openKernel(char* fileName);
 
 struct SourceInfo getSourceInfo(FILE* f);
-struct DeviceInfo initDeviceInfo();
+struct DeviceInfo ctorDeviceInfo();
 
 #endif // OPEN_CL_WRAPPER_H
