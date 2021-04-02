@@ -14,9 +14,9 @@
 int main()
 {
 	Timer* timer = new Timer();
-	const int runTimes = 10000;
+	const int runTimes = 1000;
 	RunInfo info = RunInfo();
-	TestBubbleThreaded(10000, info);
+	TestBubbleThreaded(runTimes, info);
 	Timer::PrintInfo(info);
 	system("pause");
 	return 0;

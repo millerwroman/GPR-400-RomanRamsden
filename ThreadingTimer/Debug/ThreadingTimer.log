@@ -1,13 +1,13 @@
 ﻿  Main.cpp
-E:\Champlain\A-4-Senior-Year\2Semester\Advanced Rendering\GPR-400-RomanRamsden\ThreadingTimer\PreformaceTimer.h(120,47): warning C4244: 'return': conversion from '_Rep' to 'float', possible loss of data
+I:\projects\GPR-400-RomanRamsden\ThreadingTimer\PreformaceTimer.h(120,47): warning C4244: 'return': conversion from '_Rep' to 'float', possible loss of data
           with
           [
               _Rep=__int64
           ]
-E:\Champlain\A-4-Senior-Year\2Semester\Advanced Rendering\GPR-400-RomanRamsden\ThreadingTimer\PreformaceTimer.h(135,1): warning C4244: '+=': conversion from 'float' to 'unsigned __int64', possible loss of data
-E:\Champlain\A-4-Senior-Year\2Semester\Advanced Rendering\GPR-400-RomanRamsden\ThreadingTimer\WorkerThread.h(60,7): warning C4101: 'bob': unreferenced local variable
-E:\Champlain\A-4-Senior-Year\2Semester\Advanced Rendering\GPR-400-RomanRamsden\ThreadingTimer\BubbleSort.h(13,63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Champlain\A-4-Senior-Year\2Semester\Advanced Rendering\GPR-400-RomanRamsden\ThreadingTimer\BubbleSort.h(29,32): warning C4018: '<': signed/unsigned mismatch
-E:\Champlain\A-4-Senior-Year\2Semester\Advanced Rendering\GPR-400-RomanRamsden\ThreadingTimer\BubbleSort.h(29,20): warning C4018: '<': signed/unsigned mismatch
-E:\Champlain\A-4-Senior-Year\2Semester\Advanced Rendering\GPR-400-RomanRamsden\ThreadingTimer\BubbleSort.h(39,28): warning C4018: '<': signed/unsigned mismatch
-  ThreadingTimer.vcxproj -> E:\Champlain\A-4-Senior-Year\2Semester\Advanced Rendering\GPR-400-RomanRamsden\ThreadingTimer\Debug\ThreadingTimer.exe
+I:\projects\GPR-400-RomanRamsden\ThreadingTimer\PreformaceTimer.h(135,1): warning C4244: '+=': conversion from 'float' to 'unsigned __int64', possible loss of data
+I:\projects\GPR-400-RomanRamsden\ThreadingTimer\WorkerThread.h(60,7): warning C4101: 'bob': unreferenced local variable
+I:\projects\GPR-400-RomanRamsden\ThreadingTimer\BubbleSort.h(13,63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+I:\projects\GPR-400-RomanRamsden\ThreadingTimer\BubbleSort.h(29,32): warning C4018: '<': signed/unsigned mismatch
+I:\projects\GPR-400-RomanRamsden\ThreadingTimer\BubbleSort.h(29,20): warning C4018: '<': signed/unsigned mismatch
+I:\projects\GPR-400-RomanRamsden\ThreadingTimer\BubbleSort.h(39,28): warning C4018: '<': signed/unsigned mismatch
+  ThreadingTimer.vcxproj -> I:\projects\GPR-400-RomanRamsden\ThreadingTimer\Debug\ThreadingTimer.exe
