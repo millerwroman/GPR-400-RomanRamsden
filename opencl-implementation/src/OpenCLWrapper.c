@@ -4,7 +4,7 @@
 
 char * openKernel(char* fileName)
 {
-	char* kernelDir = "src/kernels/";
+	char* kernelDir = "kernels/";
 
 	char* fileToOpen = (char*)malloc(1 + strlen(kernelDir) + strlen(fileName));
 	

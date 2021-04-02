@@ -15,18 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c">
+    <ClCompile Include="src\OpenCLWrapper.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="kernel.cl">
-      <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="OpenCLWrapper.h">
+    <ClInclude Include="include\OpenCLWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="kernels\bubble_sort.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="kernels\vector_add.cl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
