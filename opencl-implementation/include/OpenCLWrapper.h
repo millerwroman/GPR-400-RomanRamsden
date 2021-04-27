@@ -19,6 +19,8 @@ struct SourceInfo
 	size_t size;
 };
 
+typedef struct SourceInfo SourceInfo;
+
 /// <summary>
 /// Info about the device OpenCL is being run in
 /// </summary>
@@ -29,6 +31,8 @@ struct DeviceInfo
 	cl_uint num_dev;
 	cl_uint num_plat;
 };
+
+typedef struct DeviceInfo DeviceInfo;
 
 // Generates kernel with directory, kinda redundant i guess
 char* openKernel(char* fileName);

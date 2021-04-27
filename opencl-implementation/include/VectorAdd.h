@@ -3,7 +3,7 @@
 #include "OpenCLWrapper.h"
 
 static void RunVectorAdd(cl_context ctx, cl_int ret, cl_command_queue cmd_q,
-	struct SourceInfo srcInfo, struct DeviceInfo devInfo)
+	SourceInfo srcInfo, DeviceInfo devInfo)
 {
 	/// KERNEL SPECIFIC
 

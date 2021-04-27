@@ -32,12 +32,21 @@
     <ClInclude Include="include\Random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\BubbleSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PrimeFactor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="kernels\bubble_sort.cl">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="kernels\vector_add.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="kernels\prime_factor.cl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

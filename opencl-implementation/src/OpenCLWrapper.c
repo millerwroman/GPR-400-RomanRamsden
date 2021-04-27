@@ -32,7 +32,6 @@ struct DeviceInfo ctorDeviceInfo()
 	return out;
 }
 
-
 struct SourceInfo getSourceInfo(FILE* f)
 {
 	struct SourceInfo info;

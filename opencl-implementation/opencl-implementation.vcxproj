@@ -151,12 +151,15 @@
     <ClCompile Include="src\OpenCLWrapper.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\BubbleSort.h" />
     <ClInclude Include="include\OpenCLWrapper.h" />
+    <ClInclude Include="include\PrimeFactor.h" />
     <ClInclude Include="include\Random.h" />
     <ClInclude Include="include\VectorAdd.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="kernels\bubble_sort.cl" />
+    <None Include="kernels\prime_factor.cl" />
     <None Include="kernels\vector_add.cl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
