@@ -4,24 +4,28 @@
 #include "MinePool.h"
 #include <cmath>
 
-Mine::Mine(unsigned objectID, unsigned team, float position[3], float destructiveRad, bool active)
+#include "Random.h"
+
+Mine::Mine(unsigned objectID, unsigned team, float destructiveRad, bool active)
 {
 	mMineID = objectID;
 	mTeam = team;
-	position = position;
 	mDestructRad = destructiveRad;
 	mDestructRadSqr = mDestructRad * mDestructRad;
 	mActive = active;
+
+	for (int a = 0; a < 3; ++a)
+	{
+		mPosition[a] = GetRandomFloat32_Range(0, 1000);
+	}
 }
 
 Mine::~Mine()
 {
 	//Explode();
-	delete mPosition;
-	mPosition = nullptr;
 }
 
-float* Mine::GetPosition() const
+float* Mine::GetPosition()
 {
 	return mPosition;
 }

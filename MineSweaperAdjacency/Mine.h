@@ -6,12 +6,12 @@ class Mine
 {
 public:
 	Mine() = delete;
-	Mine(unsigned int objectID, unsigned int team, float position[3], float destructiveRad, bool active);
+	Mine(unsigned int objectID, unsigned int team, float destructiveRad, bool active);
 	~Mine();
 
 	//Getters/Setters
 	unsigned int GetNumTargets() { return mTargetIDList.size(); }
-	float* GetPosition() const;
+	float* GetPosition();
 	unsigned int GetTeam() const;
 	unsigned int GetID() const { return mMineID; }
 	void SetID(unsigned int ID) { mMineID = ID; }
@@ -25,7 +25,7 @@ public:
 	//void TakeDamage(float damage);
 private:
 	unsigned int mMineID;
-	float* mPosition;
+	float mPosition[3];
 	unsigned int mTeam;
 	float mDestructRad;
 	float mDestructRadSqr;

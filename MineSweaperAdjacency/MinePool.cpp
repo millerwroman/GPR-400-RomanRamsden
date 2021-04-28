@@ -23,17 +23,17 @@ void MinePool::PrintResults()
 		std::cout << "Mine Object ID: " << std::to_string(mine->GetID())
 			<< "\n Mine Targets: " << std::to_string(mine->GetNumTargets()) << "\n";
 	}
-	std::cout << "Total Mines: " << std::to_string(mMineCount) << "\n";
+	std::cout << "Total Mines: " << std::to_string(mNumberObjects) << "\n";
 }
 
 unsigned int MinePool::GetNumberOfMines()
 {
-	return mMineCount;
+	return mNumberObjects;
 }
 
 bool MinePool::IsValidIndex(unsigned ID)
 {
-	return ID < mMineCount;
+	return ID < mNumberObjects;
 }
 
 Mine* MinePool::GetMineByID(unsigned ID)
@@ -57,18 +57,18 @@ void MinePool::DeleteMine(unsigned ID)
 	mNumberObjects--;
 }
 
-void MinePool::CreateMine(unsigned ID, unsigned team, float pos[3], float radius, bool active)
+void MinePool::CreateMine(unsigned ID, unsigned team, float radius, bool active)
 {
 	if (mNumberObjects >= MAX_MINE_COUNT) return;
 
-	if(radius==0.0f)
+	if (radius == 0.0f)
 	{
-		radius = GetRandomFloat32_Range(10.0f, 100.0f);
-		mPool[mNumberObjects] = new Mine(ID, team, pos, radius, active);
+		radius = GetRandomFloat32_Range(10.0f, 500.0f);
+		mPool[mNumberObjects] = new Mine(ID, team, radius, active);
 	}
 	else
 	{
-		mPool[mNumberObjects] = new Mine(ID, team, pos, radius, active);
+		mPool[mNumberObjects] = new Mine(ID, team, radius, active);
 	}
 	mNumberObjects++;
 }
@@ -79,12 +79,7 @@ void MinePool::PopulatePool(unsigned numTeams, unsigned minesPerTeam)
 	{
 		for(unsigned int j=0; j<minesPerTeam; ++j)
 		{
-			float pos[3];
-			for(int a=0; a<3; ++a)
-			{
-				pos[a] = GetRandomFloat32_Range(-1000, 1000);
-			}
-			CreateMine(mNumberObjects, i, pos);
+			CreateMine(mNumberObjects, i);
 		}
 	}
 }

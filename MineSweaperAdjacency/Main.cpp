@@ -8,6 +8,8 @@
 #include "MinePool.h"
 #include "Random.h"
 #include "Mine.h"
+
+class TestingThread;
 //Play Setup
 const unsigned int NUM_TEAMS = 5;
 const unsigned int MINES_PER_TEAM = 500;
@@ -15,11 +17,14 @@ const unsigned int MINES_PER_TEAM = 500;
 const unsigned int RANDOM_SEED = 2435345;
 const unsigned int MAX_THREADS = 16;
 
-std::atomic_uint numThreadsActive;
+std::vector<TestingThread*> threads;
+std::atomic_uint numThreadsActive = 0;
+std::atomic_uint numThreadsStarted = 0;
 
 void ThreadedFindTarget(void* wtfDoIDoWithThis)
 {
 	++numThreadsActive;
+	++numThreadsStarted;
 
 	MinePool* pool = MinePool::GetSingleton();
 	bool working = true;
@@ -29,7 +34,10 @@ void ThreadedFindTarget(void* wtfDoIDoWithThis)
 		if (index < pool->GetNumberOfMines())
 		{
 			Mine* mine = pool->GetMineByID(index);
-			mine->FindTargets();
+			if (mine)
+			{
+				mine->FindTargets();
+			}
 		}
 		else
 		{
@@ -42,7 +50,17 @@ void ThreadedFindTarget(void* wtfDoIDoWithThis)
 }
 void StandardFindTarget()
 {
+	MinePool* pool = MinePool::GetSingleton();
 
+	for(int i=0; i<pool->GetNumberOfMines(); ++i)
+	{
+		Mine* mine = pool->GetMineByID(i);
+		if (mine)
+		{
+			mine->FindTargets();
+		}
+		
+	}
 }
 
 class TestingThread
@@ -65,14 +83,32 @@ int main()
 	TestingThread* Tester = new TestingThread();
 	//Inital Pool Setup
 	MinePool::GetSingleton()->PopulatePool(NUM_TEAMS, MINES_PER_TEAM);
-	timer->StartTimer("BigBob");
-	while (numThreadsActive > 0)
+	for (int i = 0; i < MAX_THREADS; ++i)
 	{
-		Sleep(1);
+		threads.push_back(new TestingThread());
 	}
 
-	timer->StopTimer("BigBob");
+
+	
+	timer->StartTimer("Time");
+	//For Threaded Finding----------------
+	numThreadsStarted = 0;
+
+	for(int i=0; i<MAX_THREADS; ++i)
+	{
+		threads[i]->FindTargets();
+	}
+	do
+	{
+		Sleep(1);
+	} while (numThreadsActive > 0 || numThreadsStarted == 0);
+
+	
+	//StandardFindTarget();
+	
+
+	timer->StopTimer("Time");
 	MinePool::GetSingleton()->PrintResults();
-	std::cout << "Time Taken: " << std::to_string(timer->GetElapsedTime("BigBob")) << "\n";
+	std::cout << "Time Taken: " << std::to_string(timer->GetElapsedTime("Time")) << "\n";
 	return 0;
 }
