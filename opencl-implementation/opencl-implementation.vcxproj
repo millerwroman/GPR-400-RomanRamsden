@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="include\BubbleSort.h" />
     <ClInclude Include="include\OpenCLWrapper.h" />
+    <ClInclude Include="include\PerformanceTimer.h" />
     <ClInclude Include="include\PrimeFactor.h" />
     <ClInclude Include="include\Random.h" />
     <ClInclude Include="include\VectorAdd.h" />

@@ -38,6 +38,9 @@
     <ClInclude Include="include\PrimeFactor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\PerformanceTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="kernels\bubble_sort.cl">

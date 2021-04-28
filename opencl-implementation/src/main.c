@@ -1,9 +1,14 @@
 #include "OpenCLWrapper.h"
 #include "VectorAdd.h"
 #include "BubbleSort.h"
+#include "Random.h"
+#include "PerformanceTimer.h"
 #include <stdio.h>
 
 int main(void) {
+	srand(2435345);
+	Timer* timer = new Timer();
+	
 	// GENERIC OPENCL
 	// Load the kernel source code into the array source_str
 	FILE* fp;
