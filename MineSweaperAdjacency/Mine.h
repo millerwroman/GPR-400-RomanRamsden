@@ -34,5 +34,6 @@ private:
 
 private:
 	std::vector<unsigned int> mTargetIDList;
+	int numTargets = 0;
 
 };

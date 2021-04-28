@@ -101,7 +101,7 @@ int main()
 	do
 	{
 		Sleep(1);
-	} while (numThreadsActive > 0 || numThreadsStarted == 0);
+	} while (numThreadsActive > 0);
 
 	
 	//StandardFindTarget();

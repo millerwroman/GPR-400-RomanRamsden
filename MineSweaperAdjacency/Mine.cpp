@@ -22,7 +22,6 @@ Mine::Mine(unsigned objectID, unsigned team, float destructiveRad, bool active)
 
 Mine::~Mine()
 {
-	//Explode();
 }
 
 float* Mine::GetPosition()
@@ -65,14 +64,7 @@ void Mine::FindTargets()
 		float dis = GetDistanceSqr(mPosition, mine->GetPosition());
 
 		if (dis > mDestructRadSqr) continue;
-		mTargetIDList.push_back(mine->GetID());
+		++numTargets;
+		//mTargetIDList.push_back(mine->GetID());
 	}
 }
-
-//void Mine::Explode()
-//{
-//}
-//
-//void Mine::TakeDamage(float damage)
-//{
-//}
