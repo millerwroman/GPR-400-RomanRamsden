@@ -1,18 +1,15 @@
-#pragma once
+#ifndef PERFORMANCE_TIMER_H
+#define PERFORMANCE_TIMER_H
 
 #include <chrono>
 #include <functional>
 #include <map>
 #include <atomic>
 #include <string>
-#include <iostream>
 
-// typedef std::chrono::high_resolution_clock Clock;
-// typedef std::chrono::steady_clock::time_point Time;
+typedef std::chrono::high_resolution_clock Clock;
+typedef std::chrono::steady_clock::time_point Time;
 typedef std::chrono::duration<float> ElapsedTime_f;
-typedef clock_t Clock;
-typedef time_t Time;
-
 
 class TimerInstance
 {
@@ -160,3 +157,5 @@ public:
 		}
 	}
 };
+
+#endif

@@ -1,77 +1,94 @@
 #pragma once
-
 #include "OpenCLWrapper.h"
+#include "PerformanceTimer.h"
 
-static void RunVectorAdd(cl_context ctx, cl_int ret, cl_command_queue cmd_q,
-	SourceInfo srcInfo, DeviceInfo devInfo)
+// Vector length, used in a test program
+#define LENGTH (1024)
+// Float tolerance handling
+#define TOL    (0.001)
+
+void RunVectorAdd(Timer* timer)
 {
-	/// KERNEL SPECIFIC
+	// Create some vectors of size 1024
+	std::vector<float> hA(LENGTH);
+	std::vector<float> hB(LENGTH);
+	std::vector<float> hC(LENGTH);
 
-	// Create the two input vectors
-	int i;
+	// Fill vectors with random float values
+	int count = LENGTH;
 
-	const int LIST_SIZE = 1024;
+	for (int i = 0; i < count; ++i)
+	{
+		hA[i] = rand() / static_cast<float>(RAND_MAX);
+		hB[i] = rand() / static_cast<float>(RAND_MAX);
+	}
 
-	int* A = (int*)malloc(sizeof(int) * LIST_SIZE);
-	int* B = (int*)malloc(sizeof(int) * LIST_SIZE);
+	// Start doing OpenCL stuff
 
-	for (i = 0; i < LIST_SIZE; i++) {
-		A[i] = i;
-		B[i] = LIST_SIZE - i;
+	// Create some memory buffers for input, input, and output
+	cl::Buffer dA;
+	cl::Buffer dB;
+	cl::Buffer dC;
+	
+	// Create a context on the GPU
+	cl::Context context(DEVICE);
+
+	// Load the kernel and create a program
+	cl::Program program(context, LoadKernel("vector_add.cl"), true);
+
+	// Create a queue to perform operations on
+	cl::CommandQueue commandQueue(context);
+
+	// Create the kernel functor
+	cl::make_kernel<cl::Buffer, cl::Buffer, cl::Buffer, int> vectorAdd(program, "vector_add");
+
+	dA = cl::Buffer(context, hA.begin(), hA.end(), true);
+	dB = cl::Buffer(context, hB.begin(), hB.end(), true);
+	dC = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(float) * LENGTH);
+
+	timer->StartTimer("Main");
+
+	// Run the kernel program
+	vectorAdd(
+		cl::EnqueueArgs(
+			commandQueue, cl::NDRange(count)),
+		dA, dB, dC, count);
+
+	// Wait for the kernel program to finish
+	commandQueue.finish();
+
+	timer->StopTimer("Main");
+
+	std::cout << "The kernels ran in "
+		<< std::to_string(timer->GetElapsedTime("Main"))
+		<< " seconds\n" << std::endl;
+
+	cl::copy(commandQueue, dC, hC.begin(), hC.end());
+
+	int correct = 0;
+	float tmp;
+
+	for (int i = 0; i < count; ++i)
+	{
+		tmp = hA[i] + hB[i];
+		tmp -= hC[i];
+		if (tmp * tmp < TOL * TOL)
+		{
+			correct++;
+		}
+		else
+		{
+			printf("tmp %f hA %f hB %f hC %f \n",
+				tmp,
+				hA[i],
+				hB[i],
+				hC[i]);
+		}
 	}
 
 
-	// Create memory buffers on the device for each vector 
-	cl_mem a_mem_obj = clCreateBuffer(ctx, CL_MEM_READ_ONLY,
-		LIST_SIZE * sizeof(int), NULL, &ret);
-	cl_mem b_mem_obj = clCreateBuffer(ctx, CL_MEM_READ_ONLY,
-		LIST_SIZE * sizeof(int), NULL, &ret);
-	cl_mem c_mem_obj = clCreateBuffer(ctx, CL_MEM_WRITE_ONLY,
-		LIST_SIZE * sizeof(int), NULL, &ret);
-
-	// Copy the lists A and B to their respective memory buffers
-	ret = clEnqueueWriteBuffer(cmd_q, a_mem_obj, CL_TRUE, 0,
-		LIST_SIZE * sizeof(int), A, 0, NULL, NULL);
-	ret = clEnqueueWriteBuffer(cmd_q, b_mem_obj, CL_TRUE, 0,
-		LIST_SIZE * sizeof(int), B, 0, NULL, NULL);
-
-	// Create a program from the kernel source
-	cl_program program = clCreateProgramWithSource(ctx, 1,
-		(const char**)&srcInfo.str, (const size_t*)&srcInfo.size, &ret);
-
-	// Build the program
-	ret = clBuildProgram(program, 1, &devInfo.dev_id, NULL, NULL, NULL);
-
-	// Create the OpenCL kernel
-	cl_kernel kernel = clCreateKernel(program, "vector_add", &ret);
-
-	// Set the arguments of the kernel
-	ret = clSetKernelArg(kernel, 0, sizeof(cl_mem), (void*)&a_mem_obj);
-	ret = clSetKernelArg(kernel, 1, sizeof(cl_mem), (void*)&b_mem_obj);
-	ret = clSetKernelArg(kernel, 2, sizeof(cl_mem), (void*)&c_mem_obj);
-
-	// Execute the OpenCL kernel on the list
-	size_t global_item_size = LIST_SIZE; // Process the entire lists
-	size_t local_item_size = 64; // Divide work items into groups of 64
-	ret = clEnqueueNDRangeKernel(cmd_q, kernel, 1, NULL,
-		&global_item_size, &local_item_size, 0, NULL, NULL);
-
-	// Read the memory buffer C on the device to the local variable C
-	int* C = (int*)malloc(sizeof(int) * LIST_SIZE);
-	ret = clEnqueueReadBuffer(cmd_q, c_mem_obj, CL_TRUE, 0,
-		LIST_SIZE * sizeof(int), C, 0, NULL, NULL);
-
-	// Display the result to the screen
-	for (i = 0; i < LIST_SIZE; i++)
-		printf("%d + %d = %d\n", A[i], B[i], C[i]);
-
-	// Clean up
-	ret = clReleaseKernel(kernel);
-	ret = clReleaseProgram(program);
-	ret = clReleaseMemObject(a_mem_obj);
-	ret = clReleaseMemObject(b_mem_obj);
-	ret = clReleaseMemObject(c_mem_obj);
-	free(A);
-	free(B);
-	free(C);
+	printf(
+		"vector add to find C = A+B: %d out of %d results were correct.\n",
+		correct,
+		count);
 }

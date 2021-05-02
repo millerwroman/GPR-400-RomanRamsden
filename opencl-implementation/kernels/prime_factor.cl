@@ -1,9 +1,11 @@
-__kernel void prime_factor(__global const int A, __global const int i)
+__kernel void prime_factor(
+	__global unsigned int* in,
+	__global unsigned int* out,
+	const unsigned int count)
 {
-	if(i <= A)
-	{
-		if(A % i == 0)
-			printf("%i ", i);
-		prime_factor(A, i+1);
+	int i = get_global_id(0);
+
+	if (i < count) {
+		out[i] = in[i];
 	}
 }

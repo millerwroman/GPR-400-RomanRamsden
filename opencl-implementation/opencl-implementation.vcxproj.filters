@@ -15,10 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\OpenCLWrapper.c">
+    <ClCompile Include="src\OpenCLWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\main.c">
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,6 +44,9 @@
     <ClInclude Include="include\PerformanceTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\err_code.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="kernels\bubble_sort.cl">
@@ -50,6 +56,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="kernels\prime_factor.cl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="kernels\hello.cl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
