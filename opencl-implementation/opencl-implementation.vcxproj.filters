@@ -58,8 +58,5 @@
     <None Include="kernels\prime_factor.cl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="kernels\hello.cl">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

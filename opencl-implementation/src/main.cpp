@@ -5,73 +5,38 @@
 #include <PerformanceTimer.h>
 #include <Random.h>
 #include "VectorAdd.h"
+#include "PrimeFactor.h"
+#include "BubbleSort.h"
 
 // Some error handling for OpenCL
 #include "err_code.h"
 
 const unsigned int RANDOM_SEED = 2435345;
 
-constexpr int count (10000);
-typedef unsigned int uint;
-
 int main(void)
 {
 	// Initialize the timer for this experiment
 	SetSeed(RANDOM_SEED);
 	Timer* timer = new Timer();
+
+	// Populate an array with random integers
+	std::vector<int> arrayIn(LENGTH);
+	
+	for(int i = 0; i < LENGTH; ++i)
+	{
+		arrayIn[i] = static_cast<int>(GetRandomFloat32_Range(0, (5 * LENGTH)));
+		std::cout << arrayIn[i] << std::endl;
+	}
 	
 	try
 	{
-		std::vector<uint> primeArray(count);
-		for(int i = 0; i < count; ++i)
-		{
-			primeArray[i] = GetRandomUInt32();
-		}
-
-		cl::Buffer inputVector;
-		cl::Buffer outputVector;
-
+		// RunVectorAdd(timer);
+		// RunPrimeFactor(timer);
+		
 		cl::Context context(DEVICE);
-
-		cl::Program program(context, LoadKernel("prime_factor.cl"), true);
-
+		cl::Program program(context, LoadKernel("bubble_sort.cl"));
 		cl::CommandQueue commandQueue(context);
-
-		cl::make_kernel<cl::Buffer, cl::Buffer, int> primeFactor(program, "prime_factor");
-
-		inputVector = cl::Buffer(context, primeArray.begin(), primeArray.end(), true);
-		outputVector = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(uint) * count);
-
-		timer->StartTimer("Main");
-
-		primeFactor(
-		cl::EnqueueArgs(
-		commandQueue, cl::NDRange(count)),
-			inputVector, outputVector, count);
-
-		commandQueue.finish();
-
-		timer->StopTimer("Main");
-
-		std::cout << "The kernels ran in "
-		<< std::to_string(timer->GetElapsedTime("Main"))
-		<< " seconds\n" << std::endl;
-
-		std::vector<uint> outputArray(count);
-		
-		cl::copy(commandQueue, outputVector, outputArray.begin(), outputArray.end());
-		
-		for(int i = 0; i < count; ++i)
-		{
-			if(primeArray[i] == outputArray[i])
-			{
-				std::cout << "POG!" << std::endl;
-			}
-			else
-			{
-				std::cout << "NOT POG!" << std::endl;
-			}
-		}
+				
 	}
 	catch (cl::Error err)
 	{
@@ -88,6 +53,6 @@ int main(void)
 	// Clean up timer
 	delete(timer);
 	timer = nullptr;
-	
+
 	return 0;
 }
