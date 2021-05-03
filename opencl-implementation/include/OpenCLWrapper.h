@@ -1,43 +1,26 @@
-#ifndef OPEN_CL_WRAPPER_H
-#define OPEN_CL_WRAPPER_H
+#ifndef OPENCL_WRAPPER_H
+// Utility Library for Connor Ramsden's OpenCL implementations
+#define OPENCL_WRAPPER_H
 
-// STL Includes
-#include <stdio.h>
-#include <stdlib.h>
+// OpenCL core include
+#include <CL/cl.hpp>
 
-// OpenCL Includes
-#include <CL/cl.h>
+// Standard C++ includes
+#include <vector>
+#include <cstdio>
+#include <cstdlib>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <iostream>
+#include <fstream>
 
-#define MAX_SOURCE_SIZE (0x100000)
+// We'll be using the default device, since we only have one (my GPU)
+#ifndef DEVICE
+#define DEVICE CL_DEVICE_TYPE_DEFAULT
+#endif
 
-/// <summary>
-/// A struct to hold the size and string of a kernel source
-/// </summary>
-struct SourceInfo
-{
-	char* str;
-	size_t size;
-};
+std::string LoadKernel(std::string input);
 
-typedef struct SourceInfo SourceInfo;
-
-/// <summary>
-/// Info about the device OpenCL is being run in
-/// </summary>
-struct DeviceInfo
-{
-	cl_platform_id plat_id;
-	cl_device_id dev_id;
-	cl_uint num_dev;
-	cl_uint num_plat;
-};
-
-typedef struct DeviceInfo DeviceInfo;
-
-// Generates kernel with directory, kinda redundant i guess
-char* openKernel(char* fileName);
-
-struct SourceInfo getSourceInfo(FILE* f);
-struct DeviceInfo ctorDeviceInfo();
-
-#endif // OPEN_CL_WRAPPER_H
+#endif

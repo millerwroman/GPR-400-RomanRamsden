@@ -147,11 +147,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.c" />
-    <ClCompile Include="src\OpenCLWrapper.c" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\OpenCLWrapper.cpp" />
+    <ClCompile Include="src\Random.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\BubbleSort.h" />
+    <ClInclude Include="include\err_code.h" />
     <ClInclude Include="include\OpenCLWrapper.h" />
     <ClInclude Include="include\PerformanceTimer.h" />
     <ClInclude Include="include\PrimeFactor.h" />
