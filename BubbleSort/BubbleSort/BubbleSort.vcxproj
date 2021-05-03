@@ -139,12 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameOfLife.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BubbleSort.h" />
-    <ClInclude Include="GameOfLife.h" />
     <ClInclude Include="PreformaceTimer.h" />
     <ClInclude Include="PrimeFactorization.h" />
     <ClInclude Include="Random.h" />

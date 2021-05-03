@@ -1,5 +1,6 @@
 #include <process.h>
 #include "PrimeFactorization.h"
+#include <vector>
 
 static unsigned int numberThreadsActive = 0;
 static unsigned int numberThreadsStarted = 0;
@@ -67,9 +68,9 @@ public:
 		
 	}
 
-	static RunInfo GetRunInfo()
+	static RunInfo GetRunInfo(int count)
 	{
-		return Timer::ProcessInstanceArray(info, 10000);
+		return Timer::ProcessInstanceArray(info, 10000, count);
 	}
 
 	static void Reset()

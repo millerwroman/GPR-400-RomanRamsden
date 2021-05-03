@@ -125,18 +125,20 @@ public:
 		return Clock::now();
 	}
 
-	static RunInfo ProcessInstanceArray(InstanceInfo* arr, int size)
+	static RunInfo ProcessInstanceArray(InstanceInfo* arr, int size, int count)
 	{
+		int topOut = (count < size ? count : size);
 		RunInfo info;
 		unsigned long long averageTime = 0;
-		for(int i=0;i<size; ++i)
+		for(int i=0;i<topOut; ++i)
 		{
 			float timeTaken = GetElapsedTime(arr[i]);
+			if(timeTaken <= 0 || timeTaken > 50000) continue;
 			averageTime += timeTaken;
 			info.minTime = (timeTaken < info.minTime ? timeTaken : info.minTime);
 			info.maxTime = (timeTaken > info.maxTime ? timeTaken : info.maxTime);
 		}
-
+		info.averageTime = averageTime / size;
 		return info;
 	}
 

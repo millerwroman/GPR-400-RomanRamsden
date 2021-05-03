@@ -4,8 +4,6 @@
 #include <iostream>
 #include <thread>
 
-
-#include "BubbleSort.h"
 #include "GameOfLife.h"
 #include "PreformaceTimer.h"
 #include "PrimeFactorization.h"
@@ -15,11 +13,10 @@
 int main()
 {
 	Timer* timer = new Timer();
-	const int runTimes = 10000;
+	const int runTimes = 1000;
 	RunInfo info = RunInfo();
-
-	//TestPrimeThreaded(runTimes, info);
-	Timer::PrintInfo(info);
+	//TestPrime(timer, runTimes, info);
+	TestPrimeThreaded(runTimes, info);
 	system("pause");
 	return 0;
 }

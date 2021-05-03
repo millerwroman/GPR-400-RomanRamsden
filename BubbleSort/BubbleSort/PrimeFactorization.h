@@ -3,6 +3,8 @@
 #include "WorkerThread.h"
 #include <atomic>
 
+#include "Random.h"
+
 void Print(std::vector<int> vec)
 {
 	for (auto i : vec)
@@ -95,7 +97,13 @@ void TestPrimeThreaded(int runTimes, RunInfo& info)
 		}
 	} while (numberThreadsActive > 0 || numberThreadsStarted == 0);
 
-	info = WorkerThread::GetRunInfo();
+	info = WorkerThread::GetRunInfo(runTimes);
+	printf("\n\nRuntime Info: \n");
+	printf("Number Factored: %u \n", (unsigned int)9223372036854775807);
+	printf("Max Time: %f \n", info.maxTime);
+	printf("Min Time: %f \n", info.minTime);
+	printf("Average Time: %f \n", info.averageTime);
+	printf("Sample Size: %i \n", runTimes);
 }
 
 /*Questions:
