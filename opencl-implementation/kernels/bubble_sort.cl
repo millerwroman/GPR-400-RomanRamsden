@@ -1,25 +1,11 @@
 // Basic OpenCL Bubblesort
 
-// Swap helper method
-// void swap(int* x, int* y)
-// {
-// 	int temp = *x;
-// 	*x = *y;
-// 	*y = temp;
-// }
-// 
-// // Sorting helper method
-// void sort(int* x, int* y, char dir)
-// {
-// 	if ((*x > *b) == dir)
-// 		swap(x, y);
-// }
-
 __kernel void bubble_sort(
 	__global int* in,
 	__global int* out,
 	const unsigned int count)
 {
+	// Get the thread ID we're currently on
 	int id = get_global_id(0);
 
 	// Handles out of bounds stuff
@@ -29,6 +15,7 @@ __kernel void bubble_sort(
 		int left = in[id];
 		int right = in[id + 1];
 
+		// Perform the swap
 		if(left > right)
 		{
 			int temp = left;
@@ -36,13 +23,8 @@ __kernel void bubble_sort(
 			right = temp;
 		}
 
+		// Write the swapped values to the outbound vector
 		out[id] = left;
 		out[id+1] = right;
-
-		// return;
-		// 
-		// Sort(&left, &right, 1);
-		// out[id] = left;
-		// out[id + 1] = right;
 	}
 }

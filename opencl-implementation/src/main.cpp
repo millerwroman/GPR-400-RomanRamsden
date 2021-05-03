@@ -34,6 +34,7 @@ int main(void)
 		// RunVectorAdd(timer);
 		// RunPrimeFactor(timer);
 
+		// return 0;
 		cl::Buffer inputVector;
 		cl::Buffer outputVector;
 
@@ -68,11 +69,14 @@ int main(void)
 
 		cl::copy(commandQueue, outputVector, destinationVector.begin(), destinationVector.end());
 
-		// for(int i = 0; i < destinationVector.size(); ++i)
-		// {
-		// 	std::cout << originVector[i] << "\t";
-		// 	std::cout << destinationVector[i] << std::endl;
-		// }
+		for(int i = 0; i < destinationVector.size(); ++i)
+		{
+			std::cout << originVector[i] << "\t";
+			std::cout << destinationVector[i] << std::endl;
+		}
+
+		std::cout << "\nThe kernels ran in " << std::to_string(timer->GetElapsedTime("Main"))
+			<< " seconds\n" << std::endl;
 	}
 	catch (cl::Error err)
 	{
